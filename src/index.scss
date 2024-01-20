@@ -1,0 +1,10 @@
+@import './stylesheets/mixins';
+@import './stylesheets/variables';
+
+* {
+  box-sizing: border-box;
+}
+
+p, h3 {
+  margin: 0
+}

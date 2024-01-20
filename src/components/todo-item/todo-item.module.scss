@@ -1,0 +1,89 @@
+@use '../../stylesheets/mixins' as *;
+@use '../../stylesheets/variables' as *;
+
+.todo {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px
+}
+
+.priority {
+  position: relative;
+  align-self: center;
+}
+
+.priority_changer {
+  @include input-style-reset;
+  @include size(24px, 24px);
+  cursor: pointer;
+  transition: opacity .5s;
+
+  &.decrease {
+    @include position(absolute, 13px, $left: 0);
+    transform: rotate(90deg)
+  }
+
+  &.increase {
+    @include position(absolute, 13px, 0);
+    transform: rotate(-90deg)
+  }
+
+  &:hover {
+    opacity: .6;
+  }
+}
+
+.priority_input {
+  @include input-style-reset;
+  @include font(inherit, 24px, 600, $primary-oxford-blue-default);
+  @include size(100%, 50px);
+  text-align: center;
+}
+
+.content {
+  @include flex(column, $gap: 10px);
+  position: relative;
+  width: 100%;
+  border: 5px solid;
+  border-radius: 10px;
+  padding: 10px;
+
+  &.active {
+    border-color: $active-color;
+  }
+
+  &.undone {
+    border-color: $error-default;
+  }
+
+  &.done {
+    border-color: $success-default
+  }
+}
+
+.header {
+  @include flex(row, space-between, $gap: 20px);
+  padding-bottom: 10px;
+  border-bottom: 1px solid $grey;
+}
+
+.name {
+  @include input-style-reset;
+  @include ellipsis;
+  @include font(inherit, 24px, 600, $primary-oxford-blue-default);
+  width: 50%;
+}
+
+.date {
+  @include font(inherit, 24px, 600, $primary-oxford-blue-default);
+  padding-right: 40px;
+}
+
+.text {
+  @include font(inherit, 18px, 500, $primary-oxford-blue-default);
+  font-style: italic;
+}
+
+.menu {
+  @include position(absolute, 12px, 12px);
+}

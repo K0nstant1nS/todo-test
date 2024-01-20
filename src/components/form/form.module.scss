@@ -1,0 +1,32 @@
+@use '../../stylesheets/mixins' as *;
+@use '../../stylesheets/variables' as *;
+
+.form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  row-gap: 10px;
+  column-gap: 20px;
+}
+
+.name {
+  @include font(inherit, 24px, 500, $primary-oxford-blue-default);
+  height: 50px;
+}
+
+.date {
+  @include font(inherit, 24px, 500, $primary-oxford-blue-default);
+}
+
+.text {
+  @include font(inherit, 18px, 500, $primary-oxford-blue-default);
+  grid-column: 1/3;
+  resize:vertical;
+}
+
+.buttons {
+  grid-column: 1/3;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}

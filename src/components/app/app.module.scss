@@ -1,0 +1,34 @@
+@use '../../stylesheets/mixins' as *;
+@use '../../stylesheets/variables' as *;
+
+.app {
+  @include flex(column, $gap: 30px);
+  width: 80%;
+  margin: 100px auto;
+}
+
+.controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 50px);
+  row-gap: 10px;
+  column-gap: 20px;
+
+  * {
+    @include font(inherit, 24px, 500, $primary-oxford-blue-default);
+  }
+
+  & .select_status {
+    grid-column: 2;
+  }
+}
+
+.todos {
+  @include flex(column, $gap: 20px);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid $grey;
+  border-radius: 10px;
+}

@@ -15,7 +15,7 @@ const TodoMenu: FC<TProps> = ({todo}) => {
   const dispatch = useDispatch();
 
   const removeTodo = () => {
-    dispatch(todosActions.removeTodo(todo.id))
+    dispatch(todosActions.removeTodo(todo))
   };
 
   const changeTodoStatus = (status: TTodoStatus) => {

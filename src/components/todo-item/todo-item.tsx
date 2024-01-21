@@ -5,12 +5,15 @@ import TodoMenu from "../todo-menu/todo-menu";
 import Chevron from "../../images/chevron.svg";
 import { useDispatch } from "../../services/hooks";
 import { todosActions } from "../../services/reducers/todos";
+import { Draggable } from "react-beautiful-dnd";
+import dateFormat from 'dateformat'
 
 type TProps = {
-  todo: TTodo
+  todo: TTodo;
+  index: number
 }
 
-const TodoItem: FC<TProps> = ({todo}) => {
+const TodoItem: FC<TProps> = ({todo, index}) => {
 
   const dispatch = useDispatch();
 
@@ -36,23 +39,31 @@ const TodoItem: FC<TProps> = ({todo}) => {
     updatePriority(String(+todo.priority - 1));
   };
 
-  return ( <article className={styles.todo}>
-    <div className={styles.priority}>
-      <button onClick={decreasePriority} className={`${styles.priority_changer} ${styles.decrease}`}><Chevron/></button>
-      <input className={styles.priority_input} value={todo.priority} onChange={(e) =>updatePriority(e.target.value)}/>
-      <button onClick={increasePriority} className={`${styles.priority_changer} ${styles.increase}`}><Chevron/></button>
-    </div>
-    <div className = {`${styles.content} ${styles[todo.status]}`}>
-      <div className={styles.header}>
-        <input className={styles.name} value={todo.name} onChange={(e) => updateTodo("name", e.target.value)}/>
-        {todo.date && <span className={styles.date}>до {todo.date.replace('T', " ")}</span>}
-        <div className={styles.menu}>
-          <TodoMenu todo={todo} />
-        </div>
+  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.style.height = (e.target.scrollHeight) + "px";
+    updateTodo("text", e.target.value)
+  }
+
+  return ( 
+  <Draggable key={todo.id} draggableId={todo.id} index={index}>{
+   (provided) => <article ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={styles.todo}>
+      <div className={styles.priority}>
+        <button onClick={decreasePriority} className={`${styles.priority_changer} ${styles.decrease}`}><Chevron/></button>
+        <input className={styles.priority_input} value={todo.priority} onChange={(e) =>updatePriority(e.target.value)}/>
+        <button onClick={increasePriority} className={`${styles.priority_changer} ${styles.increase}`}><Chevron/></button>
       </div>
-      <p className={styles.text}>{todo.text}</p>
-    </div>
-  </article> );
+      <div className = {`${styles.content} ${styles[todo.status]}`}>
+        <div className={styles.header}>
+          <input className={styles.name} value={todo.name} onChange={(e) => updateTodo("name", e.target.value)}/>
+          <div className={styles.menu}>
+            <TodoMenu todo={todo} />
+          </div>
+        </div>
+        <textarea onChange={onTextChange} value={todo.text} className={styles.text}/>
+        <span className={styles.date}>{dateFormat(todo.created)}</span>
+      </div>
+    </article>
+  }</Draggable> );
 }
 
 export default TodoItem;

@@ -6,7 +6,6 @@ import { todosActions } from '../../services/reducers/todos';
 
 const initialFormState = {
   name: '',
-  date: '',
   text: '',
 }
 
@@ -32,12 +31,11 @@ function Form() {
   return ( 
   <form className={styles.form}>
     <input placeholder='Название' name="name" className={styles.name} type="text" value={data.name} onChange={setInputData}/>
-    <input name="date" className={styles.date} type="datetime-local" value={data.date} onChange={setInputData}/>
-    <textarea placeholder='Описание' name="text" className={styles.text} value={data.text} onChange={setInputData}/>
     <div className={styles.buttons}>
-      <button onClick={cleanForm} type="button" className={styles.add}>Очистить</button>
-      <button onClick={addTodo} type="button" className={styles.clean}>Добавить</button>
+      <button onClick={cleanForm} type="button" className={styles.clean}>Очистить</button>
+      <button onClick={addTodo} type="button" className={styles.add}>Добавить</button>
     </div>
+    <textarea placeholder='Описание' name="text" className={styles.text} value={data.text} onChange={setInputData}/>
   </form> 
   );
 }

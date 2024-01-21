@@ -75,13 +75,18 @@
 }
 
 .date {
-  @include font(inherit, 24px, 600, $primary-oxford-blue-default);
+  @include font(inherit, 20px, 500, $grey);
+  font-style: italic;
   padding-right: 40px;
+  align-self: flex-end;
 }
 
 .text {
   @include font(inherit, 18px, 500, $primary-oxford-blue-default);
+  @include input-style-reset;
+  resize: none;
   font-style: italic;
+  min-height: 50px;
 }
 
 .menu {

@@ -25,10 +25,14 @@
 }
 
 .todos {
-  @include flex(column, $gap: 20px);
+  @include flex(column);
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
   border: 2px solid $grey;
   border-radius: 10px;
+
+  & > *{
+    padding-bottom: 10px;
+  }
 }

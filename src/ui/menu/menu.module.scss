@@ -1,7 +1,21 @@
+@use '../../stylesheets/mixins' as *;
+@use '../../stylesheets/variables' as *;
+
 .menu {
+  background-color: $off-white;
   width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .option {
+  @include input-style-reset;
+  cursor: pointer;
+  padding: 5px;
   width: 100%;
+  transition: opacity .5s;
+  
+  &:hover {
+    opacity: 0.6;
+  }
 }

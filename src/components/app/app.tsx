@@ -13,16 +13,13 @@ function App() {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
-  const [statusFilter, setStatusFilter] = useState<TTodoStatus | "">("");
 
   const filteredAndSortedActive = active
   .filter(item => item.name.startsWith(filter))
-  .filter(item => !statusFilter || item.status === statusFilter)
   .sort(getTodosSortFunc(sort));
 
   const filteredAndSortedDone = done
   .filter(item => item.name.startsWith(filter))
-  .filter(item => !statusFilter || item.status === statusFilter)
   .sort(getTodosSortFunc(sort));
 
   const onBeforeDragStart = useCallback(() => {
@@ -52,12 +49,6 @@ function App() {
         <option value="priority -">приоритет уб.</option>
         <option value="name +">имя воз.</option>
         <option value="name -">имя уб.</option>
-      </select>
-      <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as TTodoStatus | "")} className={styles.select_status}>
-        <option value="">стандарт</option>
-        <option value="active">активные</option>
-        <option value="undone">просроченые</option>
-        <option value="done">выполеные</option>
       </select>
     </div>
   </div><div className={styles.containers}>

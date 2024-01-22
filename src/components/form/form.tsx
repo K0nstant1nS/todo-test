@@ -33,7 +33,7 @@ function Form() {
     <input placeholder='Название' name="name" className={styles.name} type="text" value={data.name} onChange={setInputData}/>
     <div className={styles.buttons}>
       <button onClick={cleanForm} type="button" className={styles.clean}>Очистить</button>
-      <button onClick={addTodo} type="button" className={styles.add}>Добавить</button>
+      <button onClick={addTodo} type="button" className={styles.add} disabled={!data.name}>Добавить</button>
     </div>
     <textarea placeholder='Описание' name="text" className={styles.text} value={data.text} onChange={setInputData}/>
   </form> 

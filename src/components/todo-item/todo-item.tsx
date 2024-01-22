@@ -46,13 +46,7 @@ const TodoItem: FC<TProps> = ({todo, index}) => {
 
   return ( 
   <Draggable key={todo.id} draggableId={todo.id} index={index}>{
-   (provided) => <article ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className={styles.todo}>
-      <div className={styles.priority}>
-        <button onClick={decreasePriority} className={`${styles.priority_changer} ${styles.decrease}`}><Chevron/></button>
-        <input className={styles.priority_input} value={todo.priority} onChange={(e) =>updatePriority(e.target.value)}/>
-        <button onClick={increasePriority} className={`${styles.priority_changer} ${styles.increase}`}><Chevron/></button>
-      </div>
-      <div className = {`${styles.content} ${styles[todo.status]}`}>
+   (provided) => <article ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className = {`${styles.content} ${styles[todo.status]}`}>
         <div className={styles.header}>
           <input className={styles.name} value={todo.name} onChange={(e) => updateTodo("name", e.target.value)}/>
           <div className={styles.menu}>
@@ -60,6 +54,12 @@ const TodoItem: FC<TProps> = ({todo, index}) => {
           </div>
         </div>
         <textarea onChange={onTextChange} value={todo.text} className={styles.text}/>
+      <div className={styles.footer}>
+        <div className={styles.priority}>
+          <button onClick={decreasePriority} className={`${styles.priority_changer} ${styles.decrease}`}><Chevron/></button>
+          <input className={styles.priority_input} value={todo.priority} onChange={(e) =>updatePriority(e.target.value)}/>
+          <button onClick={increasePriority} className={`${styles.priority_changer} ${styles.increase}`}><Chevron/></button>
+        </div>
         <span className={styles.date}>{dateFormat(todo.created)}</span>
       </div>
     </article>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {v4 as uuid} from 'uuid';
-import styles from './form.module.scss';
+import styles from './add-form.module.scss';
 import { useDispatch } from '../../services/hooks';
 import { todosActions } from '../../services/reducers/todos';
 
@@ -9,7 +9,7 @@ const initialFormState = {
   text: '',
 }
 
-function Form() {
+function AddForm() {
   const [data, setData] = useState(initialFormState);
   const dispatch = useDispatch();
 
@@ -40,4 +40,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default AddForm;

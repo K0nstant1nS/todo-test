@@ -7,25 +7,17 @@
   margin: 100px auto 40px;
 }
 
-.controls {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(2, 50px);
-  row-gap: 10px;
-  column-gap: 20px;
-
-  * {
-    @include font(inherit, 24px, 500, $primary-oxford-blue-default);
-  }
-
-  & .select_status {
-    grid-column: 2;
-  }
-}
-
 .containers {
   @include flex(row, $gap: 30px);
+}
+
+.container {
+  @include flex(column, $align-items: center, $gap: 10px);
+  width: 100%;
+}
+
+.container-title {
+  @include font(inherit, 32px, 600, $grey);
 }
 
 .todos {
@@ -39,6 +31,6 @@
   border-radius: 10px;
 
   & > *{
-    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 }

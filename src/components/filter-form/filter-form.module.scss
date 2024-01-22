@@ -1,0 +1,29 @@
+@use '../../stylesheets/mixins' as *;
+@use '../../stylesheets/variables' as *;
+
+.controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 50px);
+  row-gap: 10px;
+  column-gap: 20px;
+
+  * {
+    @include font(inherit, 24px, 500, $primary-oxford-blue-default);
+  }
+}
+
+.input-container {
+  @include size(100%, 100%);
+  position: relative;
+
+  & > input {
+    @include size(100%, 100%);
+    border-radius: 5px;
+  }
+}
+
+.search-icon {
+  @include position(absolute, 13px, 10px)
+}

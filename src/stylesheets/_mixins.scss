@@ -87,3 +87,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@mixin focus-border-color($color) {
+  transition: border-color .5s;
+
+  &:focus {
+    border-color: $color;
+  }
+}

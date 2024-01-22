@@ -24,3 +24,8 @@ export type TMenuOption = {
   label: string;
   handler: () => void;
 };
+
+export type TSortSetting = {
+  field: string;
+  direction: '+' | '-';
+}

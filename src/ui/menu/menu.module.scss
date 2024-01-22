@@ -12,7 +12,7 @@
   @include input-style-reset;
   @include font(inherit, 20px, 500, $primary-oxford-blue-default);
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
   transition: opacity .5s;
   

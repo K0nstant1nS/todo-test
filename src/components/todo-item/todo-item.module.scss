@@ -46,8 +46,15 @@
   min-height: 50px;
 }
 
-.menu {
+.remove {
+  @include input-style-reset;
   @include position(absolute, 12px, 12px);
+  cursor: pointer;
+  transition: opacity .5s;
+
+  &:hover {
+    opacity: .6;
+  }
 }
 
 .footer {

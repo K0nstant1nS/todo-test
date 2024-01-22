@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import styles from './todo-item.module.scss';
 import { TTodo } from "../../utils/types";
-import TodoMenu from "../todo-menu/todo-menu";
+import RemoveIcon from "../../images/delete.svg";
 import Chevron from "../../images/chevron.svg";
 import { useDispatch } from "../../services/hooks";
 import { todosActions } from "../../services/reducers/todos";
@@ -16,10 +16,17 @@ type TProps = {
 const TodoItem: FC<TProps> = ({todo, index}) => {
 
   const dispatch = useDispatch();
+  const ref = useRef<HTMLTextAreaElement | null>(null);
 
   const updateTodo = (field: string, prop: string) =>  {
     dispatch(todosActions.changeTodo({...todo, [field]: prop}))
   };
+
+  useEffect(() => {
+    if(ref.current){
+      ref.current.style.height = (ref.current.scrollHeight) + "px";
+    }
+  })
 
   const updatePriority = (value: string) => {
     if(Number(value) > 0 && Number(value) < 100) {
@@ -40,8 +47,11 @@ const TodoItem: FC<TProps> = ({todo, index}) => {
   };
 
   const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.style.height = (e.target.scrollHeight) + "px";
-    updateTodo("text", e.target.value)
+    updateTodo("text", e.target.value);
+  }
+
+  const removeTodo = () => {
+    dispatch(todosActions.removeTodo(todo))
   }
 
   return ( 
@@ -49,11 +59,11 @@ const TodoItem: FC<TProps> = ({todo, index}) => {
    (provided) => <article ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className = {`${styles.content} ${styles[todo.status]}`}>
         <div className={styles.header}>
           <input className={styles.name} value={todo.name} onChange={(e) => updateTodo("name", e.target.value)}/>
-          <div className={styles.menu}>
-            <TodoMenu todo={todo} />
-          </div>
+          <button onClick={removeTodo} className={styles.remove}>
+            <RemoveIcon/>
+          </button>
         </div>
-        <textarea onChange={onTextChange} value={todo.text} className={styles.text}/>
+        <textarea ref={ref} onChange={onTextChange} value={todo.text} className={styles.text}/>
       <div className={styles.footer}>
         <div className={styles.priority}>
           <button onClick={decreasePriority} className={`${styles.priority_changer} ${styles.decrease}`}><Chevron/></button>

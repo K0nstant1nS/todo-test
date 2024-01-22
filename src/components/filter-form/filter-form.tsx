@@ -20,12 +20,12 @@ const FilterForm: FC<TProps> = ({filter, sort, setFilter, setSort}) => {
     </div>
     <select value={sort} onChange={(e) => setSort(e.target.value)}>
       <option value="">стандарт</option>
-      <option value="created +">сначала старые</option>
-      <option value="created -">сначала новые</option>
-      <option value="priority +">приоритет воз.</option>
-      <option value="priority -">приоритет уб.</option>
-      <option value="name +">имя воз.</option>
-      <option value="name -">имя уб.</option>
+      <option value="created+">сначала старые</option>
+      <option value="created-">сначала новые</option>
+      <option value="priority+">приоритет воз.</option>
+      <option value="priority-">приоритет уб.</option>
+      <option value="name+">имя воз.</option>
+      <option value="name-">имя уб.</option>
     </select>
   </div> );
 }

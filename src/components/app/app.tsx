@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from "../../services/hooks";
 import { getTodos, getTodosSortFunc } from "../../utils";
@@ -10,23 +10,38 @@ import AddForm from "../add-form/add-form";
 import FilterForm from "../filter-form/filter-form";
 
 function App() {
-  const { active, done } = useSelector(getTodos);
+  const {active, done} = useSelector(getTodos);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
 
-  const filteredAndSortedActive = active
+  const filteredAndSortedActive = useMemo(() => active
   .filter(item => item.name.startsWith(filter))
-  .sort(getTodosSortFunc(sort));
+  .sort(getTodosSortFunc(sort)), [active, filter, sort])
 
-  const filteredAndSortedDone = done
+  const filteredAndSortedDone = useMemo(() => done
   .filter(item => item.name.startsWith(filter))
-  .sort(getTodosSortFunc(sort));
+  .sort(getTodosSortFunc(sort)), [done, filter, sort])
+
+  const filteredAndSortedTodos = {
+    active: filteredAndSortedActive,
+    done: filteredAndSortedDone
+  }
+
+  console.log(filteredAndSortedDone);
 
   const onDragEnd = useCallback((result: DropResult) => {
-    console.log(result);
-    dispatch(todosActions.switchPosition({source: result.source.index, destination: result.destination?.index, sourceContainer: result.source.droppableId as TTodoStatus, targetContainer: result.destination?.droppableId as TTodoStatus }))
-  }, []);
+    // отмена если нет объекта-цели
+    if(!result.destination) {
+      return
+    }
+    // отмена если заданы параметры фильтрации или сортировки(дабы не влияло на стандартное состояние), срабатывает только перенос
+    if((sort || filter) && result.destination.droppableId == result.source.droppableId) {
+      return
+    }
+    const sourceTodo = filteredAndSortedTodos[result.source.droppableId as TTodoStatus][result.source.index];
+    dispatch(todosActions.switchPosition({source: sourceTodo, destination: result.destination?.index, targetContainer: result.destination?.droppableId as TTodoStatus }))
+  }, [filteredAndSortedActive, filteredAndSortedDone, done, active]);
 
 
   return ( <><div className={styles.app}>

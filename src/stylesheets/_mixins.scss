@@ -13,27 +13,11 @@
   }
 };
 
-/* Отступы */
-@mixin indents($padding: 0, $margin: 0) {
-  padding: $padding;
-  margin: $margin;
-};
-
 /* Размеры элемента' */
 @mixin size($width, $height){
   width: $width;
   height: $height;
 };
-
-@mixin max-size($max-width, $max-height) {
-  max-width: $max-width;
-  max-height: $max-height;
-}
-
-@mixin min-size($min-width, $min-height) {
-  min-width: $min-width;
-  min-height: $min-height;
-}
 
 /* Позиционирование элемента */
 @mixin position($position, $top: false, $right: false, $bottom: false, $left: false) {
@@ -60,11 +44,6 @@
   color: $color;
 };
 
-@mixin line-sizes($line-height: inherit, $letter-spacing: inherit) {
-  line-height: $line-height;
-  letter-spacing: $letter-spacing;
-}
-
 /* Обрезание текста - эллипсис */
 @mixin ellipsis{
   text-overflow: ellipsis;
@@ -78,14 +57,6 @@
   padding: 0;
   background: transparent;
   outline: 0;
-}
-
-@mixin hide-scroll {
-  & ::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 @mixin focus-border-color($color) {

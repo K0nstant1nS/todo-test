@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { todosReducer } from "../reducers/todos";
-import thunk from 'redux-thunk'
 
 export const store = configureStore({
   reducer: {
     todos: todosReducer
   },
-  middleware: [thunk],
   devTools: true
 })
 

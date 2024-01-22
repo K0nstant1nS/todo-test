@@ -32,3 +32,9 @@
 .search-icon {
   @include position(absolute, 13px, 10px)
 }
+
+.select {
+  @include input-style-reset;
+  border: 2px solid $grey;
+  border-radius: 10px;
+}

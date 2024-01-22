@@ -1,5 +1,3 @@
-import { iconMappingObject } from "./constants";
-
 export type TTodoStatus = 'active' | 'done';
 
 export type TTodo = {
@@ -20,12 +18,6 @@ export type TDropSwitchData = {
 export interface IAction<T> {
   payload: T;
 }
-
-export type TMenuOption = {
-  label: string;
-  handler: () => void;
-  icon?: keyof typeof iconMappingObject;
-};
 
 export type TSortSetting = {
   field: string;

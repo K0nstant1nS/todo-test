@@ -24,10 +24,16 @@
   }
 }
 
+.containers {
+  @include flex(row, $gap: 30px);
+}
+
 .todos {
   @include flex(column);
   box-sizing: border-box;
+  height: min-content;
   width: 100%;
+  min-height: 500px;
   padding: 10px;
   border: 2px solid $grey;
   border-radius: 10px;

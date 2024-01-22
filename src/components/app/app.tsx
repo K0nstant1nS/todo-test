@@ -9,20 +9,21 @@ import { TTodoStatus } from "../../utils/types";
 import { todosActions } from "../../services/reducers/todos";
 
 function App() {
-  const { active } = useSelector(getTodos);
+  const { active, done } = useSelector(getTodos);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
   const [statusFilter, setStatusFilter] = useState<TTodoStatus | "">("");
 
-  const filteredAndSorted = active
+  const filteredAndSortedActive = active
   .filter(item => item.name.startsWith(filter))
   .filter(item => !statusFilter || item.status === statusFilter)
   .sort(getTodosSortFunc(sort));
 
-  const todos = filteredAndSorted.map((item, index) => {
-    return <TodoItem key={item.id}  todo={item} index={index}/>
-  })
+  const filteredAndSortedDone = done
+  .filter(item => item.name.startsWith(filter))
+  .filter(item => !statusFilter || item.status === statusFilter)
+  .sort(getTodosSortFunc(sort));
 
   const onBeforeDragStart = useCallback(() => {
   }, []);
@@ -35,11 +36,11 @@ function App() {
   }, []);
   const onDragEnd = useCallback((result: DropResult) => {
     console.log(result);
-    dispatch(todosActions.switchPosition({source: result.source.index, destination: result.destination?.index, sourceContainer: 'active', targetContainer: 'active' }))
+    dispatch(todosActions.switchPosition({source: result.source.index, destination: result.destination?.index, sourceContainer: result.source.droppableId as TTodoStatus, targetContainer: result.destination?.droppableId as TTodoStatus }))
   }, []);
 
 
-  return ( <div className={styles.app}>
+  return ( <><div className={styles.app}>
     <Form />
     <div className={styles.controls}>
       <input placeholder="Поиск по названию" value={filter} onChange={(e) => setFilter(e.target.value)} />
@@ -59,23 +60,31 @@ function App() {
         <option value="done">выполеные</option>
       </select>
     </div>
-    {todos.length > 0 && 
-    <DragDropContext
-      onBeforeDragStart={onBeforeDragStart} 
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
-      onDragUpdate={onDragUpdate}
-    >
-      <Droppable droppableId="active">
-        {(provider) => <div ref={provider.innerRef} {...provider.droppableProps} className={styles.todos}>
-            {filteredAndSorted.map((item, index) => {
-              return <TodoItem key={item.id}  todo={item} index={index}/>
+  </div><div className={styles.containers}>
+      <DragDropContext
+        onBeforeDragStart={onBeforeDragStart}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        onDragUpdate={onDragUpdate}
+      >
+        <Droppable droppableId="active">
+          {(provider) => <div ref={provider.innerRef} {...provider.droppableProps} className={styles.todos}>
+            {filteredAndSortedActive.map((item, index) => {
+              return <TodoItem key={item.id} todo={item} index={index} />;
             })}
             {provider.placeholder}
-        </div>}
-      </Droppable>
-    </DragDropContext>}
-  </div> );
+          </div>}
+        </Droppable>
+        <Droppable droppableId="done">
+          {(provider) => <div ref={provider.innerRef} {...provider.droppableProps} className={styles.todos}>
+            {filteredAndSortedDone.map((item, index) => {
+              return <TodoItem key={item.id} todo={item} index={index} />;
+            })}
+            {provider.placeholder}
+          </div>}
+        </Droppable>
+      </DragDropContext>
+    </div></> );
 }
 
 export default App;

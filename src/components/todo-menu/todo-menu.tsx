@@ -4,7 +4,7 @@ import MenuImage from '../../images/more.svg';
 import { useDispatch } from '../../services/hooks';
 import { todosActions } from '../../services/reducers/todos';
 import Menu from '../../ui/menu/menu';
-import { TTodo, TTodoStatus } from '../../utils/types';
+import { TTodo } from '../../utils/types';
 
 type TProps = {
   todo: TTodo
@@ -18,11 +18,7 @@ const TodoMenu: FC<TProps> = ({todo}) => {
     dispatch(todosActions.removeTodo(todo))
   };
 
-  const changeTodoStatus = (status: TTodoStatus) => {
-    dispatch(todosActions.changeTodo({...todo, status: status}))
-  }
-
-  const menuData = [{label: "Удалить", handler: removeTodo}, {label: "Выполнено", handler: () => changeTodoStatus("done")}];
+  const menuData = [{label: "Удалить", handler: removeTodo}];
 
   return ( 
   <div className={styles.menu} onClick={() => toggleMenu(!isOpened)}>

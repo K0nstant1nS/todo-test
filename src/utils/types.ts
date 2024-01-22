@@ -12,8 +12,8 @@ export type TTodo = {
 export type TDropSwitchData = {
   source: number;
   destination?: number;
-  sourceContainer: TTodoStatus;
-  targetContainer: TTodoStatus;
+  sourceContainer?: TTodoStatus;
+  targetContainer?: TTodoStatus;
 };
 
 export interface IAction<T> {

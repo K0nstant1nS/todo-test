@@ -10,6 +10,7 @@
 
 .option {
   @include input-style-reset;
+  @include font(inherit, 20px, 500, $primary-oxford-blue-default);
   cursor: pointer;
   padding: 5px;
   width: 100%;
